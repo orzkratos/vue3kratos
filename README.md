@@ -6,7 +6,8 @@ Vue 3 frontends and Kratos backends integration toolkit. Enabling seamless commu
 在学前端时发现vue3用起来还行，就想着用vue3做前端连接kratos的后端服务，因此做了个中间的胶水工具，让两个语言能够更顺畅的对接。
 
 ## 把kratos的proto接口定义转换为 typescript 语言的 grpc 的请求
-```
+这里只能给 makefile 的参考内容，因为开发者的工具路径不同，三方包的路径和版本不同
+``` makefile
 web_api_grpc_ts:
         mkdir -p ./bin/web_api_grpc_ts.out
         protoc \
@@ -22,6 +23,7 @@ web_api_grpc_ts:
       --proto_path=./proto3ps \
       $(THIRD_PARTY_GOOGLE_API_PROTO_FILES)
 ```
+具体使用时请自己根据实际编写吧
 
 ## 把grpc请求逻辑替换为使用http请求逻辑
 安装
