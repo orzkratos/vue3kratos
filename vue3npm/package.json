@@ -1,0 +1,19 @@
+{
+  "name": "vue3npm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo 'vue3-kratos' && exit 0",
+    "rpcrewrite": "node src/rpcviahttp/rpcrewrite.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@protobuf-ts/runtime-rpc": "^2.9.4",
+    "axios": "^1.7.7",
+    "element-plus": "^2.8.4"
+  }
+}

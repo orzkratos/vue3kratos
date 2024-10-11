@@ -1,0 +1,1 @@
+package vue3kratos2gen
