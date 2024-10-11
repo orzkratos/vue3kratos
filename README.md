@@ -23,15 +23,15 @@ web_api_grpc_ts:
       --proto_path=./proto3ps \
       $(THIRD_PARTY_GOOGLE_API_PROTO_FILES)
 ```
-具体使用时请自己根据实际编写吧
+具体使用时请自己根据实际编写吧，确保工具链相同。
 
 ## 把grpc请求逻辑替换为使用http请求逻辑
-安装
+### 安装
 ```
 go install github.com/orzkratos/vue3kratos/cmd/vue3kratos2main@latest
 ```
 
-使用
+### 使用
 ```
 vue3kratos2main gen-grpc-via-http-in-path --grpc_ts_path=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
 ```
