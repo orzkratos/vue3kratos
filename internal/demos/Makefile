@@ -13,6 +13,7 @@ ifeq ($(GOHOSTOS), windows)
 else
 	INTERNAL_PROTO_FILES=$(shell find internal -name *.proto)
 	API_PROTO_FILES=$(shell find api -name *.proto)
+	#这就是新增的内容
 	#想把第三方的这些也收集下来，再使用命令生成第三方包（因为自动生成好像不是很好使）
 	THIRD_PARTY_GOOGLE_API_PROTO_FILES=$(shell find third_party/google/api -name *.proto)
 endif
@@ -64,7 +65,7 @@ all:
 	make config;
 	make generate;
 
-
+# 这就是新增的内容
 web_api_grpc_ts:
 	mkdir -p ./bin/web_api_grpc_ts.out
 	protoc \
