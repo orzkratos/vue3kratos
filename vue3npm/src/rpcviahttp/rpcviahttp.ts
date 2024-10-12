@@ -66,8 +66,8 @@ function rewritePathParam<T extends object>(uriPath: string, input: T): string {
 
             if (value === undefined) {
                 // 尝试将蛇形命名法转换为小驼峰命名法
-                const camelcaseParamName = name2camelcase(paramName)
-                value = input[camelcaseParamName]
+                const pnm: string = paramName2camelcase(paramName)
+                value = input[pnm]
             }
 
             if (value === undefined) {
@@ -93,6 +93,6 @@ export function urxCombine(urb: string, uri: string): string {
     return urx
 }
 
-function name2camelcase(str: string): string {
-    return str.replace(/_([a-z])/g, (g) => g[1].toUpperCase())
+function paramName2camelcase(paramName: string): string {
+    return paramName.replace(/_([a-z])/g, (g) => g[1].toUpperCase())
 }

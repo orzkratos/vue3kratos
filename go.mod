@@ -9,7 +9,7 @@ require (
 	github.com/yyle88/erero v1.0.11
 	github.com/yyle88/osexistpath v0.0.5
 	github.com/yyle88/runpath v1.0.9
-	github.com/yyle88/zaplog v0.0.11
+	github.com/yyle88/zaplog v0.0.12
 	go.uber.org/zap v1.27.0
 )
 
@@ -19,7 +19,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/yyle88/mutexmap v1.0.5 // indirect
+	github.com/yyle88/mutexmap v1.0.6 // indirect
 	github.com/yyle88/sure v0.0.23 // indirect
 	github.com/yyle88/syntaxgo v0.0.30 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
