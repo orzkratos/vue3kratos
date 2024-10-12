@@ -20,11 +20,16 @@ make web_api_grpc_ts
 
 这是直接得到的 ts 代码 [转换前的客户端代码](greeter.client.ts-B.txt)
 
-接着使用
+假如您想在golang项目中替换，就请使用：
 ```
 vue3kratos2main gen-grpc-via-http-in-path --grpc_ts_path=/xxx/helloworld/bin/web_api_grpc_ts.out/helloworld/v1/greeter.client.ts
 ```
 注意这里要用绝对路径
+
+假如您想在vue项目中替换grpc，就请把 [rpcrewrite.js](../../vue3npm/src/rpcviahttp/rpcrewrite.js) 拷贝到你的vue项目里，再仿照 [package.json](../../vue3npm/package.json) 的 `scripts` 也写个相同的，再在您的vue项目中执行：
+```
+npm run rpcrewrite -- /xxx/src/rpc/rpc_admin_login/admin_login.client.ts
+```
 
 就会得到你想要的结果
 

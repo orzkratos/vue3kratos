@@ -146,6 +146,9 @@ admin@lele-de-MacBook-Pro v1 % cat greeter.client.ts
 因此接下来就是使用这个工具把代码再改改。
 
 ## 把grpc请求逻辑替换为使用http请求逻辑
+得到的代码既可以在 golang 侧替换内容，也可以在 vue 侧替换内容。
+
+假如是要在 golang 侧转换，就需要安装工具
 ### 安装
 ```
 go install github.com/orzkratos/vue3kratos/cmd/vue3kratos2main@latest
@@ -156,6 +159,8 @@ go install github.com/orzkratos/vue3kratos/cmd/vue3kratos2main@latest
 vue3kratos2main gen-grpc-via-http-in-path --grpc_ts_path=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
 ```
 这个文件里的内容就会被替换，因此特别注意，路径要传正确的绝对路径。
+
+同样的，假如要在 vue 侧转换，请按照例子操作。
 
 这里有个简单的小例子演示: [演示由kratos项目直接得到ts客户端代码](internal/demos/README.md)
 

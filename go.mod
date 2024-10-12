@@ -3,6 +3,7 @@ module github.com/orzkratos/vue3kratos
 go 1.22.6
 
 require (
+	github.com/google/uuid v1.6.0
 	github.com/spf13/cobra v1.8.1
 	github.com/stretchr/testify v1.9.0
 	github.com/yyle88/done v1.0.11

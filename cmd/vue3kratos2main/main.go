@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/orzkratos/vue3kratos/vue3kratos2gen"
-	"github.com/orzkratos/vue3kratos/vue3npm"
 	"github.com/spf13/cobra"
 	"github.com/yyle88/done"
 	"github.com/yyle88/zaplog"
@@ -29,7 +28,7 @@ func main() {
 			Short: "Generate gRPC via HTTP",
 			Long:  "Generate gRPC TypeScript stubs using HTTP",
 			Run: func(cmd *cobra.Command, args []string) {
-				vue3kratos2gen.GenGrpcViaHttpInRoot(vue3npm.SourceRoot(), grpcTsRoot)
+				vue3kratos2gen.NewGen().GenGrpcViaHttpInRoot(grpcTsRoot)
 			},
 		}
 		// 把 grpcTsRoot 路径参数加入子命令里
@@ -52,7 +51,7 @@ func main() {
 			Short: "Generate gRPC via HTTP",
 			Long:  "Generate gRPC TypeScript stubs using HTTP",
 			Run: func(cmd *cobra.Command, args []string) {
-				vue3kratos2gen.GenGrpcViaHttpInPath(vue3npm.SourceRoot(), grpcTsPath)
+				done.Done(vue3kratos2gen.GenGrpcViaHttpWithGo(grpcTsPath))
 			},
 		}
 		// 把 grpcTsPath 路径参数加入子命令里

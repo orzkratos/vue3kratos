@@ -1,16 +1,23 @@
 package utils
 
 import (
+	"encoding/hex"
 	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 
+	"github.com/google/uuid"
 	"github.com/yyle88/erero"
 	"github.com/yyle88/zaplog"
 	"go.uber.org/zap"
 )
+
+func NewUUID() string {
+	uux := uuid.New()
+	return hex.EncodeToString(uux[:])
+}
 
 func ExecInPath(path string, name string, args ...string) ([]byte, error) {
 	if path == "" {
