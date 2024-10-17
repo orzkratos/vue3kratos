@@ -8,9 +8,9 @@ require (
 	github.com/stretchr/testify v1.9.0
 	github.com/yyle88/done v1.0.11
 	github.com/yyle88/erero v1.0.11
-	github.com/yyle88/osexistpath v0.0.5
+	github.com/yyle88/osexistpath v0.0.8
 	github.com/yyle88/runpath v1.0.9
-	github.com/yyle88/zaplog v0.0.12
+	github.com/yyle88/zaplog v0.0.13
 	go.uber.org/zap v1.27.0
 )
 

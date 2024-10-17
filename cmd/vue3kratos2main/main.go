@@ -28,7 +28,7 @@ func main() {
 			Short: "Generate gRPC via HTTP",
 			Long:  "Generate gRPC TypeScript stubs using HTTP",
 			Run: func(cmd *cobra.Command, args []string) {
-				vue3kratos2gen.NewGen().GenGrpcViaHttpInRoot(grpcTsRoot)
+				vue3kratos2gen.GenGrpcViaHttpInRoot(grpcTsRoot)
 			},
 		}
 		// 把 grpcTsRoot 路径参数加入子命令里
@@ -51,7 +51,7 @@ func main() {
 			Short: "Generate gRPC via HTTP",
 			Long:  "Generate gRPC TypeScript stubs using HTTP",
 			Run: func(cmd *cobra.Command, args []string) {
-				done.Done(vue3kratos2gen.GenGrpcViaHttpWithGo(grpcTsPath))
+				done.Done(vue3kratos2gen.GenGrpcViaHttpInPath(grpcTsPath))
 			},
 		}
 		// 把 grpcTsPath 路径参数加入子命令里
