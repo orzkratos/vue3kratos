@@ -28,14 +28,29 @@ func GenGrpcViaHttpInRoot(grpcTsRoot string) {
 	}))
 }
 
+// GenGrpcViaHttpInPath 在整个文件里找 ts grpc client 代码，把它们转换为使用 http 请求
+// 把它替换完将会直接写进原来的文件里
 func GenGrpcViaHttpInPath(codePath string) error {
 	zaplog.LOG.Info("gen_grpc_via_http", zap.String("code_path", codePath))
 	if codePath == "" {
 		return erero.New("没有路径参数-请设置文件路径.")
 	}
 	// 读取文件
-	newContent := string(done.VAE(os.ReadFile(codePath)).Nice())
+	srcContent := string(done.VAE(os.ReadFile(codePath)).Nice())
 
+	// 替换内容-得到新的内容
+	newContent := GenGrpcViaHttpInCode(srcContent)
+
+	// 写回文件
+	done.Done(os.WriteFile(codePath, []byte(newContent), 0644))
+	zaplog.LOG.Info("内容替换成功!")
+	return nil
+}
+
+// GenGrpcViaHttpInCode 在整个代码里找 ts grpc client 代码，把它们转换为使用 http 请求
+// 将会返回修改后的代码
+func GenGrpcViaHttpInCode(srcContent string) string {
+	newContent := srcContent
 	// 进行替换，把逻辑里调用grpc的地方改为调用http
 	newContent = strings.Replace(newContent, "stackIntercept<", "executeGrtp<", -1)
 	newContent = strings.Replace(newContent, "UnaryCall<", "GrtpPromise<", -1)
@@ -54,9 +69,5 @@ func GenGrpcViaHttpInPath(codePath string) error {
 			newContent = newContent[:insertIndex] + "\n" + targetImport + newContent[insertIndex:]
 		}
 	}
-
-	// 写回文件
-	done.Done(os.WriteFile(codePath, []byte(newContent), 0644))
-	zaplog.LOG.Info("内容替换成功!")
-	return nil
+	return newContent
 }
