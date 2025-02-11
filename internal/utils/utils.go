@@ -27,7 +27,7 @@ func ExecInPath(path string, name string, args ...string) ([]byte, error) {
 		return nil, erero.New("COMMAND NAME CANNOT CONTAIN SPACES")
 	}
 	//这里只是打印出日志，以便于从日志中拷贝出命令直接手动执行
-	zaplog.ZAPS.P1.LOG.Debug("EXEC_IN_PATH:", zap.String("cms", format1x(path, name, args...)))
+	zaplog.ZAPS.Skip1.LOG.Debug("EXEC_IN_PATH:", zap.String("cms", format1x(path, name, args...)))
 	//设置命令和参数
 	cmd := exec.Command(name, args...)
 	//这是运行命令所在的目录

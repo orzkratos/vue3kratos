@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "demo": "echo 'vue3-kratos' && exit 0",
     "test": "echo 'vue3-kratos' && exit 0",
     "rpcrewrite": "node src/rpcviahttp/rpcrewrite.js"
   },
@@ -13,7 +14,7 @@
   "description": "",
   "dependencies": {
     "@protobuf-ts/runtime-rpc": "^2.9.4",
-    "axios": "^1.7.7",
-    "element-plus": "^2.8.4"
+    "axios": "1.7.9",
+    "element-plus": "^2.9.4"
   }
 }
