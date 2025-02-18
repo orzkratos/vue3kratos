@@ -4,10 +4,10 @@ go 1.22.8
 
 require (
 	github.com/google/uuid v1.6.0
-	github.com/spf13/cobra v1.8.1
+	github.com/spf13/cobra v1.9.1
 	github.com/stretchr/testify v1.10.0
 	github.com/yyle88/done v1.0.21
-	github.com/yyle88/erero v1.0.17
+	github.com/yyle88/erero v1.0.18
 	github.com/yyle88/osexistpath v0.0.16
 	github.com/yyle88/runpath v1.0.23
 	github.com/yyle88/zaplog v0.0.19

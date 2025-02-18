@@ -109,6 +109,15 @@ THIRD_PARTY_GOOGLE_API_PROTO_FILES=$(shell find proto3ps/google/api -name *.prot
 
 具体使用时请自己根据实际编写吧，确保工具链相同。
 
+#### 需要升级工具链时
+```
+/Users/admin/.nvm/versions/node/v18.17.0/bin/protoc-gen-ts
+```
+把它替换为新版本的
+```
+/Users/admin/.nvm/versions/node/v22.11.0/bin/protoc-gen-ts
+```
+
 #### 通过工具得到代码
 首先创建 Kratos 项目，这里只是个展示
 ```

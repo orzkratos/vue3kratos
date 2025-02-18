@@ -48,7 +48,8 @@ func GenGrpcViaHttpInPath(codePath string) error {
 }
 
 // GenGrpcViaHttpInCode 在整个代码里找 ts grpc client 代码，把它们转换为使用 http 请求
-// 将会返回修改后的代码
+// 将返回修改后的代码
+// 假如文件已经被替换，再次运行时就不改变文件内容，保持替换后的状态
 func GenGrpcViaHttpInCode(srcContent string) string {
 	newContent := srcContent
 	// 进行替换，把逻辑里调用grpc的地方改为调用http

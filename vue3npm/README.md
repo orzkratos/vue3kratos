@@ -14,4 +14,4 @@ npm run rpcrewrite -- /xxx/src/rpc/rpc_admin_login/admin_login.client.ts
 当然您也可以把它拷贝到您的 vue3 项目里，把命令也拷贝粘贴修改，依然可以使用。
 
 ## 其它信息
-由于需要用到 js 因此需要使用 `"type": "module",` 在 package.json 里面。
+由于需要用到 js 因此需要在 package.json 里面配置 `"type": "module",` 这项内容。
