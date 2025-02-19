@@ -9,7 +9,7 @@ import type { HelloReply } from "./greeter";
 import type { HelloRequest } from "./greeter";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
-import { executeGrtp, GrtpPromise } from '@/rpcviahttp/rpcviahttp.ts';
+import { executeGrtp, GrtpPromise } from '@yyle88/grpt/src/grpcviahttp';
 /**
  * The greeting service definition.
  *

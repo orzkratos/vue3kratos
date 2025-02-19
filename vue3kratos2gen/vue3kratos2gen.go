@@ -57,7 +57,7 @@ func GenGrpcViaHttpInCode(srcContent string) string {
 	newContent = strings.Replace(newContent, "UnaryCall<", "GrtpPromise<", -1)
 
 	// 判断是否已经存在目标引用
-	targetImport := `import { executeGrtp, GrtpPromise } from '@/rpcviahttp/rpcviahttp.ts';`
+	targetImport := `import { executeGrtp, GrtpPromise } from '@yyle88/grpt/src/grpcviahttp';`
 	searchImport := `import type { RpcOptions } from "@protobuf-ts/runtime-rpc";`
 
 	if !strings.Contains(newContent, targetImport) {

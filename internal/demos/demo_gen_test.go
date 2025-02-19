@@ -30,10 +30,10 @@ func TestGenUseNpm(t *testing.T) {
 
 	caseGenFunc(t, func(targetRoot string, targetPath string) {
 		// 这里执行的命令大概是这样的，在运行时也会在日志中打印出命令内容
-		// cd xxx && npm run rpcrewrite -- /xxx/src/rpc/rpc_admin_login/admin_login.client.ts
+		// cd xxx && npm run grpcrewrite -- /xxx/src/rpc/rpc_admin_login/admin_login.client.ts
 		// 当然里面涉及的都是绝对路径
 		// 这里不成功就直接崩掉，毕竟只是代码生成的逻辑，而不是在服务中运行的逻辑，直接崩掉也是可以的
-		output := done.VAE(utils.ExecInPath(vue3npmRoot, "npm", "run", "rpcrewrite", "--", targetPath)).Nice()
+		output := done.VAE(utils.ExecInPath(vue3npmRoot, "npm", "run", "grpcrewrite", "--", targetPath)).Nice()
 		// 简单打印下运行的结果
 		zaplog.SUG.Info(string(output))
 	})

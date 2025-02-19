@@ -26,9 +26,16 @@ vue3kratos2main gen-grpc-via-http-in-path --grpc_ts_path=/xxx/helloworld/bin/web
 ```
 注意这里要用绝对路径
 
-假如您想在vue项目中替换grpc，就请把 [rpcrewrite.js](../../vue3npm/src/rpcviahttp/rpcrewrite.js) 拷贝到你的vue项目里，再仿照 [package.json](../../vue3npm/package.json) 的 `scripts` 也写个相同的，再在您的vue项目中执行：
+假如您想在vue项目中替换grpc，就请仿照 [package.json](../../vue3npm/package.json) 的 `scripts` 也写个相同的 `"grpcrewrite": "grpcrewrite"`
+
+当然您需要在项目里安装 "@yyle88/grpt" 这个包:
 ```
-npm run rpcrewrite -- /xxx/src/rpc/rpc_admin_login/admin_login.client.ts
+npm install @yyle88/grpt
+```
+
+再在您的vue项目中执行：
+```
+npm run grpcrewrite -- /xxx/src/rpc/rpc_admin_login/admin_login.client.ts
 ```
 
 就会得到你想要的结果

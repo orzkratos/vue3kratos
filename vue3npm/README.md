@@ -9,7 +9,7 @@
 ## 使用举例
 需要在当前目录里执行：
 ```
-npm run rpcrewrite -- /xxx/src/rpc/rpc_admin_login/admin_login.client.ts
+npm run grpcrewrite -- /xxx/src/rpc/rpc_admin_login/admin_login.client.ts
 ```
 当然您也可以把它拷贝到您的 vue3 项目里，把命令也拷贝粘贴修改，依然可以使用。
 

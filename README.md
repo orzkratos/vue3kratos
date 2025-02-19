@@ -173,6 +173,12 @@ vue3kratos2main gen-grpc-via-http-in-path --grpc_ts_path=/xxx/src/rpc/rpc_admin_
 
 这里有个简单的小例子演示: [演示由kratos项目直接得到ts客户端代码](internal/demos/README.md)
 
-结果里要引用的模块在这里: [把typescript的grpc请求转为http请求](vue3npm/src/rpcviahttp/rpcviahttp.ts)
+结果里要引用的模块在这里: [把typescript的grpc请求转为http请求](https://www.npmjs.com/package/@yyle88/grpt)
 
-目前还没有把它做成 npm 的模块，把它直接拷贝到您的vue项目里就行。
+直接在项目里安装这个npm包就行。
+
+```bash
+npm install @yyle88/grpt
+```
+
+当然建议还是使用golang侧转换，在项目侧只使用就行。
