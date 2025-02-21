@@ -14,8 +14,8 @@
   "description": "",
   "dependencies": {
     "@protobuf-ts/runtime-rpc": "^2.9.4",
-    "@yyle88/grpt": "^0.0.3",
+    "@yyle88/grpt": "^0.0.5",
     "axios": "1.7.9",
-    "element-plus": "^2.9.4"
+    "element-plus": "^2.9.5"
   }
 }

@@ -15,8 +15,8 @@ import (
 )
 
 func NewUUID() string {
-	uux := uuid.New()
-	return hex.EncodeToString(uux[:])
+	newUUID := uuid.New()
+	return hex.EncodeToString(newUUID[:])
 }
 
 func ExecInPath(path string, name string, args ...string) ([]byte, error) {

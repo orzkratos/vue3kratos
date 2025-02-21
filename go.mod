@@ -6,11 +6,11 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/spf13/cobra v1.9.1
 	github.com/stretchr/testify v1.10.0
-	github.com/yyle88/done v1.0.21
+	github.com/yyle88/done v1.0.22
 	github.com/yyle88/erero v1.0.18
 	github.com/yyle88/osexistpath v0.0.16
 	github.com/yyle88/runpath v1.0.23
-	github.com/yyle88/zaplog v0.0.19
+	github.com/yyle88/zaplog v0.0.20
 	go.uber.org/zap v1.27.0
 )
 
