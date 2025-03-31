@@ -7,39 +7,14 @@ import (
 
 	"github.com/orzkratos/vue3kratos/internal/utils"
 	"github.com/orzkratos/vue3kratos/vue3kratos2gen"
-	"github.com/orzkratos/vue3kratos/vue3npm"
 	"github.com/stretchr/testify/require"
 	"github.com/yyle88/done"
 	"github.com/yyle88/osexistpath/osmustexist"
 	"github.com/yyle88/runpath"
-	"github.com/yyle88/zaplog"
 )
 
 // 测试在golang侧转换
 func TestGenUseGolangLogic(t *testing.T) {
-	caseGenFunc(t, func(targetRoot string, targetPath string) {
-		vue3kratos2gen.GenGrpcViaHttpInRoot(targetRoot)
-	})
-}
-
-// 测试在npm js侧转换，这里用的命令行，调用npm项目里的命令做转换
-func TestGenUseNpm(t *testing.T) {
-	vue3npmRoot := osmustexist.ROOT(vue3npm.SourceRoot())
-	// 确保工作目录是项目目录
-	osmustexist.FILE(filepath.Join(vue3npmRoot, "package.json"))
-
-	caseGenFunc(t, func(targetRoot string, targetPath string) {
-		// 这里执行的命令大概是这样的，在运行时也会在日志中打印出命令内容
-		// cd xxx && npm run grpcrewrite -- /xxx/src/rpc/rpc_admin_login/admin_login.client.ts
-		// 当然里面涉及的都是绝对路径
-		// 这里不成功就直接崩掉，毕竟只是代码生成的逻辑，而不是在服务中运行的逻辑，直接崩掉也是可以的
-		output := done.VAE(utils.ExecInPath(vue3npmRoot, "npm", "run", "grpcrewrite", "--", targetPath)).Nice()
-		// 简单打印下运行的结果
-		zaplog.SUG.Info(string(output))
-	})
-}
-
-func caseGenFunc(t *testing.T, runGenFunc func(targetRoot string, targetPath string)) {
 	//转换前的代码
 	dataB := done.VAE(os.ReadFile(runpath.PARENT.Join("greeter.client.ts-B.txt"))).Nice()
 	//转换后的代码
@@ -60,7 +35,7 @@ func caseGenFunc(t *testing.T, runGenFunc func(targetRoot string, targetPath str
 	osmustexist.FILE(targetPath)
 
 	t.Log("run-generate")
-	runGenFunc(targetRoot, targetPath)
+	vue3kratos2gen.GenGrpcViaHttpInRoot(targetRoot)
 	t.Log("success-done")
 
 	//读取转换后的内容

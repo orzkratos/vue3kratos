@@ -53,8 +53,8 @@ func GenGrpcViaHttpInPath(codePath string) error {
 func GenGrpcViaHttpInCode(srcContent string) string {
 	newContent := srcContent
 	// 进行替换，把逻辑里调用grpc的地方改为调用http
-	newContent = strings.Replace(newContent, "stackIntercept<", "executeGrtp<", -1)
-	newContent = strings.Replace(newContent, "UnaryCall<", "GrtpPromise<", -1)
+	newContent = strings.ReplaceAll(newContent, "stackIntercept<", "executeGrtp<")
+	newContent = strings.ReplaceAll(newContent, "UnaryCall<", "GrtpPromise<")
 
 	// 判断是否已经存在目标引用
 	targetImport := `import { executeGrtp, GrtpPromise } from '@yyle88/grpt/src/grpcviahttp';`
