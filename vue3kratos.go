@@ -1,4 +1,4 @@
-package vue3kratos2gen
+package vue3kratos
 
 import (
 	"os"

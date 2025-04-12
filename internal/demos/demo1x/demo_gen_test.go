@@ -1,24 +1,23 @@
-package demos
+package demo1x
 
 import (
 	"os"
 	"path/filepath"
 	"testing"
 
+	"github.com/orzkratos/vue3kratos"
 	"github.com/orzkratos/vue3kratos/internal/utils"
-	"github.com/orzkratos/vue3kratos/vue3kratos2gen"
 	"github.com/stretchr/testify/require"
 	"github.com/yyle88/done"
 	"github.com/yyle88/osexistpath/osmustexist"
-	"github.com/yyle88/runpath"
 )
 
 // 测试在golang侧转换
 func TestGenUseGolangLogic(t *testing.T) {
 	//转换前的代码
-	dataB := done.VAE(os.ReadFile(runpath.PARENT.Join("greeter.client.ts-B.txt"))).Nice()
+	dataB := done.VAE(os.ReadFile(GetClientBPath())).Nice()
 	//转换后的代码
-	dataA := done.VAE(os.ReadFile(runpath.PARENT.Join("greeter.client.ts-A.txt"))).Nice()
+	dataA := done.VAE(os.ReadFile(GetClientAPath())).Nice()
 
 	targetRoot, err := os.MkdirTemp("", utils.NewUUID())
 	require.NoError(t, err)
@@ -35,7 +34,7 @@ func TestGenUseGolangLogic(t *testing.T) {
 	osmustexist.FILE(targetPath)
 
 	t.Log("run-generate")
-	vue3kratos2gen.GenGrpcViaHttpInRoot(targetRoot)
+	vue3kratos.GenGrpcViaHttpInRoot(targetRoot)
 	t.Log("success-done")
 
 	//读取转换后的内容

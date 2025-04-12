@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/orzkratos/vue3kratos/vue3kratos2gen"
+	"github.com/orzkratos/vue3kratos"
 	"github.com/spf13/cobra"
 	"github.com/yyle88/done"
 	"github.com/yyle88/osexistpath/osmustexist"
@@ -22,7 +22,7 @@ var rootCmd = &cobra.Command{
 }
 
 func main() {
-	{ // example: vue3kratos2main gen-grpc-via-http-in-root --grpc_ts_root=/xxx/src/rpc
+	{ // example: vue3orzkratos gen-grpc-via-http-in-root --grpc_ts_root=/xxx/src/rpc
 		// 目标的位置
 		var grpcTsRoot string
 
@@ -32,7 +32,7 @@ func main() {
 			Short: "Generate gRPC via HTTP",
 			Long:  "Generate gRPC TypeScript stubs using HTTP",
 			Run: func(cmd *cobra.Command, args []string) {
-				vue3kratos2gen.GenGrpcViaHttpInRoot(grpcTsRoot)
+				vue3kratos.GenGrpcViaHttpInRoot(grpcTsRoot)
 			},
 		}
 		// 把 grpcTsRoot 路径参数加入子命令里
@@ -45,7 +45,7 @@ func main() {
 		rootCmd.AddCommand(genCmd)
 	}
 
-	{ // example: vue3kratos2main gen-grpc-via-http-in-path --grpc_ts_path=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
+	{ // example: vue3orzkratos gen-grpc-via-http-in-path --grpc_ts_path=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
 		// 目标的位置
 		var grpcTsPath string
 
@@ -55,7 +55,7 @@ func main() {
 			Short: "Generate gRPC via HTTP",
 			Long:  "Generate gRPC TypeScript stubs using HTTP",
 			Run: func(cmd *cobra.Command, args []string) {
-				done.Done(vue3kratos2gen.GenGrpcViaHttpInPath(grpcTsPath))
+				done.Done(vue3kratos.GenGrpcViaHttpInPath(grpcTsPath))
 			},
 		}
 		// 把 grpcTsPath 路径参数加入子命令里
@@ -68,7 +68,7 @@ func main() {
 		rootCmd.AddCommand(genCmd)
 	}
 
-	{ // example: vue3kratos2main gen-grpc-via-http-in-code --grpc_ts_code=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
+	{ // example: vue3orzkratos gen-grpc-via-http-in-code --grpc_ts_code=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
 		// 目标的位置
 		var grpcTsCode string
 
@@ -83,7 +83,7 @@ func main() {
 				//读取内容
 				srcContent := done.VAE(os.ReadFile(clientPath)).Nice()
 				//转换内容
-				newContent := vue3kratos2gen.GenGrpcViaHttpInCode(string(srcContent))
+				newContent := vue3kratos.GenGrpcViaHttpInCode(string(srcContent))
 				//打印结果
 				fmt.Println()
 				fmt.Println(newContent)

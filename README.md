@@ -160,12 +160,12 @@ admin@lele-de-MacBook-Pro v1 % cat greeter.client.ts
 假如是要在 golang 侧转换，就需要安装工具
 ### 安装
 ```
-go install github.com/orzkratos/vue3kratos/cmd/vue3kratos2main@latest
+go install github.com/orzkratos/vue3kratos/cmd/vue3orzkratos@latest
 ```
 
 ### 使用
 ```
-vue3kratos2main gen-grpc-via-http-in-path --grpc_ts_path=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
+vue3orzkratos gen-grpc-via-http-in-path --grpc_ts_path=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
 ```
 这个文件里的内容就会被替换，因此特别注意，路径要传正确的绝对路径。
 
