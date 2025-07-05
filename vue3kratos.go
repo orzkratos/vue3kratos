@@ -15,7 +15,7 @@ import (
 // GenGrpcViaHttpInRoot 在整个目录里找 ts grpc client 代码，把它们转换为使用 http 请求
 // 这个是存放以 ".client.ts" 结尾的代码文件的目录/代码总目录，注意不要填错，毕竟它会修改文件内容，这里要特别注意
 func GenGrpcViaHttpInRoot(grpcTsRoot string) {
-	zaplog.LOG.Info("gen_grpc_via_http", zap.String("grpc_ts_root", grpcTsRoot))
+	zaplog.LOG.Info("gen-grpc-via-http", zap.String("grpc-ts-root", grpcTsRoot))
 	osmustexist.MustRoot(grpcTsRoot)
 
 	done.Done(utils.WalkFiles(grpcTsRoot, func(path string, info os.FileInfo) error {
@@ -31,7 +31,7 @@ func GenGrpcViaHttpInRoot(grpcTsRoot string) {
 // GenGrpcViaHttpInPath 在整个文件里找 ts grpc client 代码，把它们转换为使用 http 请求
 // 把它替换完将会直接写进原来的文件里
 func GenGrpcViaHttpInPath(codePath string) error {
-	zaplog.LOG.Info("gen_grpc_via_http", zap.String("code_path", codePath))
+	zaplog.LOG.Info("gen-grpc-via-http", zap.String("code_path", codePath))
 	if codePath == "" {
 		return erero.New("没有路径参数-请设置文件路径.")
 	}

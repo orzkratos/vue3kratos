@@ -13,9 +13,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@protobuf-ts/runtime-rpc": "^2.9.6",
-    "@yyle88/grpt": "^0.0.7",
-    "axios": "1.8.4",
-    "element-plus": "^2.9.7"
+    "@protobuf-ts/runtime-rpc": "^2.11.1",
+    "@yyle88/grpt": "^0.0.8",
+    "axios": "1.10.0",
+    "element-plus": "^2.10.3"
   }
 }
