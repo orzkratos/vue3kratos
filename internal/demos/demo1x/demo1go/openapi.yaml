@@ -1,0 +1,178 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: DEMO-TITLE
+    version: 0.0.1
+paths:
+    /api/demo/create-rpc-demo:
+        post:
+            tags:
+                - Rpcdemo
+            operationId: Rpcdemo_CreateRpcDemo
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.rpcdemo.CreateRpcDemoRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.rpcdemo.CreateRpcDemoReply'
+    /api/demo/create-rpc-demo/{code}:
+        delete:
+            tags:
+                - Rpcdemo
+            operationId: Rpcdemo_DeleteRpcDemo
+            parameters:
+                - name: code
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.rpcdemo.DeleteRpcDemoReply'
+    /api/demo/select-rpc-demo:
+        get:
+            tags:
+                - Rpcdemo
+            operationId: Rpcdemo_SelectRpcDemo
+            parameters:
+                - name: type
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.rpcdemo.SelectRpcDemoReply'
+    /api/demo/update-rpc-demo:
+        put:
+            tags:
+                - Rpcdemo
+            operationId: Rpcdemo_UpdateRpcDemo
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.rpcdemo.UpdateRpcDemoRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.rpcdemo.UpdateRpcDemoReply'
+    /api/greeter/meet/{name}:
+        get:
+            tags:
+                - Greeter
+            description: Sends a greeting
+            operationId: Greeter_SayHello
+            parameters:
+                - name: name
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.v1.greeter.HelloReply'
+    /api/service/ping:
+        get:
+            tags:
+                - Rpcping
+            operationId: Rpcping_Ping
+            parameters:
+                - name: value
+                  in: query
+                  description: The string value.
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: string
+components:
+    schemas:
+        api.rpcdemo.CreateRpcDemoReply:
+            type: object
+            properties:
+                code:
+                    type: string
+        api.rpcdemo.CreateRpcDemoRequest:
+            type: object
+            properties:
+                code:
+                    type: string
+                name:
+                    type: string
+                type:
+                    type: string
+        api.rpcdemo.DeleteRpcDemoReply:
+            type: object
+            properties:
+                code:
+                    type: string
+        api.rpcdemo.SelectRpcDemoReply:
+            type: object
+            properties:
+                demos:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.rpcdemo.SelectRpcDemoReply_Item'
+        api.rpcdemo.SelectRpcDemoReply_Item:
+            type: object
+            properties:
+                code:
+                    type: string
+                name:
+                    type: string
+                type:
+                    type: string
+        api.rpcdemo.UpdateRpcDemoReply:
+            type: object
+            properties:
+                code:
+                    type: string
+                name:
+                    type: string
+        api.rpcdemo.UpdateRpcDemoRequest:
+            type: object
+            properties:
+                code:
+                    type: string
+                name:
+                    type: string
+        api.v1.greeter.HelloReply:
+            type: object
+            properties:
+                message:
+                    type: string
+            description: The response message containing the greetings
+tags:
+    - name: Greeter
+      description: The greeting service definition.
+    - name: Rpcdemo
+    - name: Rpcping

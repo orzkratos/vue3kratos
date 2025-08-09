@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package api.rpcping;
+
+import "google/api/annotations.proto";
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/wrappers.proto";
+//import "google/protobuf/struct.proto";
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+//import "google/protobuf/duration.proto";
+
+option go_package = "demo1go/api/rpcping;rpcping";
+option java_multiple_files = true;
+option java_package = "api.rpcping";
+
+service Rpcping {
+  rpc Ping(google.protobuf.StringValue) returns (google.protobuf.StringValue) {
+    option (google.api.http) = {
+      get: "/api/service/ping"
+    };
+  }
+}

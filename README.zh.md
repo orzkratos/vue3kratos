@@ -115,7 +115,7 @@ vue3orzkratos gen-grpc-via-http-in-path \
 npm install @yyle88/grpt
 ```
 
-> 模块地址：[@yyle88/grpt on npm](https://www.npmjs.com/package/@yyle88/grpt)
+> npm 模块地址：[@yyle88/grpt](https://www.npmjs.com/package/@yyle88/grpt)
 
 ---
 
@@ -145,7 +145,7 @@ npm install @yyle88/grpt
 
 ## 旧版本文档
 
-[旧版说明](internal/docs/README_OLD_DOC.zh.md)
+[旧版说明](internal/doc/README_OLD_DOC.zh.md)
 
 ---
 

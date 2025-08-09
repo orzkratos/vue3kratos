@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package api.rpcdemo;
+
+import "google/api/annotations.proto";
+import "google/protobuf/descriptor.proto";
+//import "google/protobuf/wrappers.proto";
+//import "google/protobuf/struct.proto";
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
+//import "google/protobuf/duration.proto";
+
+option go_package = "demo1go/api/rpcdemo;rpcdemo";
+option java_multiple_files = true;
+option java_package = "api.rpcdemo";
+
+service Rpcdemo {
+	rpc CreateRpcDemo (CreateRpcDemoRequest) returns (CreateRpcDemoReply) {
+    option (google.api.http) = {
+      post: "/api/demo/create-rpc-demo"
+      body: "*"
+    };
+  }
+  rpc DeleteRpcDemo (DeleteRpcDemoRequest) returns (DeleteRpcDemoReply) {
+    option (google.api.http) = {
+      delete: "/api/demo/create-rpc-demo/{code}"
+    };
+  }
+	rpc UpdateRpcDemo (UpdateRpcDemoRequest) returns (UpdateRpcDemoReply) {
+    option (google.api.http) = {
+      put: "/api/demo/update-rpc-demo"
+      body: "*"
+    };
+  }
+	rpc SelectRpcDemo (SelectRpcDemoRequest) returns (SelectRpcDemoReply) {
+    option (google.api.http) = {
+      get: "/api/demo/select-rpc-demo"
+    };
+  }
+}
+
+message CreateRpcDemoRequest {
+  string code = 1;
+  string name = 2;
+  string type = 3;
+}
+message CreateRpcDemoReply {
+  string code = 1;
+}
+
+message DeleteRpcDemoRequest {
+  string code = 1;
+}
+message DeleteRpcDemoReply {
+  string code = 1;
+}
+
+message UpdateRpcDemoRequest {
+  string code = 1;
+  string name = 2;
+}
+message UpdateRpcDemoReply {
+  string code = 1;
+  string name = 2;
+}
+
+message SelectRpcDemoRequest {
+  string type = 1;
+}
+message SelectRpcDemoReply {
+  message Item {
+    string code = 1;
+    string name = 2;
+    string type = 3;
+  }
+  repeated Item demos = 1;
+}

@@ -117,7 +117,7 @@ Install the helper module in your Vue project:
 npm install @yyle88/grpt
 ```
 
-> Module URL: [@yyle88/grpt on npm](https://www.npmjs.com/package/@yyle88/grpt)
+> npm module URL: [@yyle88/grpt](https://www.npmjs.com/package/@yyle88/grpt)
 
 ---
 
@@ -147,7 +147,7 @@ npm install @yyle88/grpt
 
 ## OLD-Documentation
 
-[README OLD DOC](internal/docs/README_OLD_DOC.en.md)
+[README OLD DOC](internal/doc/README_OLD_DOC.en.md)
 
 ---
 
