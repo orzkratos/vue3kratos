@@ -12,8 +12,20 @@ import (
 	"github.com/yyle88/osexistpath/osmustexist"
 )
 
+func TestGetProjectPath(t *testing.T) {
+	t.Log(GetProjectPath())
+}
+
+func TestGetClientBPath(t *testing.T) {
+	t.Log(GetClientBPath())
+}
+
+func TestGetClientAPath(t *testing.T) {
+	t.Log(GetClientAPath())
+}
+
 // 测试在golang侧转换
-func TestGenUseGolangLogic(t *testing.T) {
+func TestGenGrpcViaHttpInRoot(t *testing.T) {
 	//转换前的代码
 	dataB := done.VAE(os.ReadFile(GetClientBPath())).Nice()
 	//转换后的代码
@@ -33,9 +45,9 @@ func TestGenUseGolangLogic(t *testing.T) {
 	// 确保已经写入文件，即目标存在
 	osmustexist.FILE(targetPath)
 
-	t.Log("run-generate")
+	t.Log("run generate")
 	vue3kratos.GenGrpcViaHttpInRoot(targetRoot)
-	t.Log("success-done")
+	t.Log("success done")
 
 	//读取转换后的内容
 	newContent := done.VAE(os.ReadFile(targetPath)).Nice()

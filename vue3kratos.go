@@ -6,7 +6,7 @@ import (
 
 	"github.com/orzkratos/vue3kratos/internal/utils"
 	"github.com/yyle88/done"
-	"github.com/yyle88/erero"
+	"github.com/yyle88/must"
 	"github.com/yyle88/osexistpath/osmustexist"
 	"github.com/yyle88/zaplog"
 	"go.uber.org/zap"
@@ -22,7 +22,7 @@ func GenGrpcViaHttpInRoot(grpcTsRoot string) {
 		zaplog.LOG.Info("walk", zap.String("path", path))
 		if strings.HasSuffix(path, ".client.ts") {
 			zaplog.LOG.Info("walk", zap.String("name", info.Name()))
-			done.Done(GenGrpcViaHttpInPath(path))
+			GenGrpcViaHttpInPath(path)
 		}
 		return nil
 	}))
@@ -30,21 +30,18 @@ func GenGrpcViaHttpInRoot(grpcTsRoot string) {
 
 // GenGrpcViaHttpInPath 在整个文件里找 ts grpc client 代码，把它们转换为使用 http 请求
 // 把它替换完将会直接写进原来的文件里
-func GenGrpcViaHttpInPath(codePath string) error {
-	zaplog.LOG.Info("gen-grpc-via-http", zap.String("code_path", codePath))
-	if codePath == "" {
-		return erero.New("没有路径参数-请设置文件路径.")
-	}
+func GenGrpcViaHttpInPath(grpcTsPath string) {
+	zaplog.LOG.Info("gen-grpc-via-http", zap.String("code_path", grpcTsPath))
+	must.Nice(grpcTsPath)
 	// 读取文件
-	srcContent := string(done.VAE(os.ReadFile(codePath)).Nice())
+	srcContent := string(done.VAE(os.ReadFile(grpcTsPath)).Nice())
 
 	// 替换内容-得到新的内容
 	newContent := GenGrpcViaHttpInCode(srcContent)
 
 	// 写回文件
-	done.Done(os.WriteFile(codePath, []byte(newContent), 0644))
-	zaplog.LOG.Info("内容替换成功!")
-	return nil
+	done.Done(os.WriteFile(grpcTsPath, []byte(newContent), 0644))
+	zaplog.LOG.Info("content replace success!!!")
 }
 
 // GenGrpcViaHttpInCode 在整个代码里找 ts grpc client 代码，把它们转换为使用 http 请求
@@ -57,7 +54,9 @@ func GenGrpcViaHttpInCode(srcContent string) string {
 	newContent = strings.ReplaceAll(newContent, "UnaryCall<", "GrtpPromise<")
 
 	// 判断是否已经存在目标引用
-	targetImport := `import { executeGrtp, GrtpPromise } from '@yyle88/grpt/src/grpcviahttp';`
+	targetImport := `import { executeGrtp } from '@yyle88/grpt/src/grpcviahttp';` +
+		"\n" +
+		`import type { GrtpPromise } from '@yyle88/grpt/src/grpcviahttp';`
 	searchImport := `import type { RpcOptions } from "@protobuf-ts/runtime-rpc";`
 
 	if !strings.Contains(newContent, targetImport) {
@@ -71,4 +70,10 @@ func GenGrpcViaHttpInCode(srcContent string) string {
 		}
 	}
 	return newContent
+}
+
+// CloneFilesToDestRoot recursively copies files from source to target.
+// 把源目录的文件克隆到目标目录里
+func CloneFilesToDestRoot(sourceRoot string, targetRoot string) {
+	utils.CopyFiles(sourceRoot, targetRoot)
 }
