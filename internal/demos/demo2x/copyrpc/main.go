@@ -7,7 +7,6 @@ import (
 	"github.com/orzkratos/vue3kratos"
 	"github.com/orzkratos/vue3kratos/internal/demos/demo1x"
 	"github.com/orzkratos/vue3kratos/internal/demos/demo2x"
-	"github.com/orzkratos/vue3kratos/internal/utils"
 	"github.com/yyle88/done"
 	"github.com/yyle88/osexec"
 	"github.com/yyle88/osexistpath/osmustexist"
@@ -27,7 +26,7 @@ func main() {
 
 	vueRpcPath := filepath.Join(demo2x.GetProjectPath(), "src/rpc")
 	osmustexist.MustRoot(vueRpcPath)
-	utils.CopyFiles(outputRoot, vueRpcPath)
+	vue3kratos.CloneFilesToDestRoot(outputRoot, vueRpcPath)
 
 	vue3kratos.GenGrpcViaHttpInRoot(vueRpcPath)
 }

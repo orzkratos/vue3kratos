@@ -6,16 +6,23 @@
   "scripts": {
     "demo": "echo 'vue3-kratos' && exit 0",
     "test": "echo 'vue3-kratos' && exit 0",
-    "grpcrewrite": "grpcrewrite"
+    "grpcrewrite": "grpcrewrite",
+    "show": "echo 'vue3-kratos' && exit 0",
+    "demo1": "tsx src/demo1-greeter-kratos.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "lele",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@protobuf-ts/grpcweb-transport": "^2.11.1",
     "@protobuf-ts/runtime-rpc": "^2.11.1",
-    "@yyle88/grpt": "^0.0.10",
+    "@yyle88/grpt": "^0.0.11",
     "axios": "1.11.0",
     "element-plus": "^2.10.6"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
   }
 }
