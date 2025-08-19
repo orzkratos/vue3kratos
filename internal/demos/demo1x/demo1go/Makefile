@@ -10,7 +10,7 @@ else
 endif
 
 .PHONY: api
-# generate internal proto
+# Gen go stubs from proto
 api:
 	protoc --proto_path=./api \
 		   --proto_path=./proto3ps \
@@ -21,7 +21,7 @@ api:
 		   $(API_PROTO_FILES)
 
 .PHONY: orz
-# generate internal proto
+# A convenience script to sync service with proto
 orz:
 	make api
 	# go install github.com/orzkratos/orzkratos/cmd/orzkratos-srv-proto@latest
@@ -29,7 +29,7 @@ orz:
 	go mod tidy -e
 	echo "success"
 
-# 这就是新增的内容
+# Gen ts client from proto
 .PHONY: web-api-grpc-ts
 # npm install -g @protobuf-ts/plugin
 web-api-grpc-ts:
@@ -49,13 +49,13 @@ web-api-grpc-ts:
 	--proto_path=./proto3ps \
 	$(THIRD_PARTY_GOOGLE_API_PROTO_FILES)
 
-# 这就是新增的内容
+# Convert ts client to http
 .PHONY: web-api-grpt-ts
 # go install github.com/orzkratos/vue3kratos/cmd/vue3orzkratos@latest
 web-api-grpt-ts:
 	vue3orzkratos gen-grpc-via-http-in-root --grpc-ts-root=./bin/web_api_grpc_ts.out
 
-# 这就是新增的内容
+# Cleanup ts client
 .PHONY: web-api-cleanup
 # cleanup
 web-api-cleanup:

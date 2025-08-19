@@ -12,8 +12,8 @@ import (
 	"go.uber.org/zap"
 )
 
-// GenGrpcViaHttpInRoot 在整个目录里找 ts grpc client 代码，把它们转换为使用 http 请求
-// 这个是存放以 ".client.ts" 结尾的代码文件的目录/代码总目录，注意不要填错，毕竟它会修改文件内容，这里要特别注意
+// GenGrpcViaHttpInRoot 在整个DIR里找 ts grpc client 代码，把它们转换为使用 http 请求
+// 这个是存放以 ".client.ts" 结尾的代码文件的DIR/代码总DIR，注意不要填错，毕竟它会修改文件内容，这里要特别注意
 func GenGrpcViaHttpInRoot(grpcTsRoot string) {
 	zaplog.LOG.Info("gen-grpc-via-http", zap.String("grpc-ts-root", grpcTsRoot))
 	osmustexist.MustRoot(grpcTsRoot)
@@ -72,8 +72,8 @@ func GenGrpcViaHttpInCode(srcContent string) string {
 	return newContent
 }
 
-// CloneFilesToDestRoot recursively copies files from source to target.
-// 把源目录的文件克隆到目标目录里
+// CloneFilesToDestRoot deep copies files from a source DIR to a target DIR.
+// 把源DIR的文件克隆到目标DIR里
 func CloneFilesToDestRoot(sourceRoot string, targetRoot string) {
 	utils.CopyFiles(sourceRoot, targetRoot)
 }

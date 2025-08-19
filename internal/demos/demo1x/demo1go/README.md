@@ -1,36 +1,73 @@
-# Simple Kratos Project
+# Demo1Go - Kratos Backend Service
 
 A simple kratos project (no config. no errors. no bin. no wire. no database).
 
-## Run
+A simple kratos project provides a minimalist Kratos backend service, designed to work as the server-side counterpart for the `vue3kratos` frontend demonstrations.
 
-```bash
-go run cmd/demo1go/main.go
-```
+## CHINESE README
 
-output log:
+[中文说明](README.zh.md)
 
-```
-INFO msg=[HTTP] server listening on: [::]:28000
-INFO msg=[gRPC] server listening on: [::]:28001
-```
+## 🌟 Features
 
-Check apis:
+*   **Simple Kratos Setup**: A lightweight project with no complex dependencies like configs, databases.
+*   **Double Protocol Support**: Exposes both gRPC (port `28001`) and HTTP (port `28000`) endpoints at once.
+*   **Comprehensive Demo APIs**: Implements three distinct services to showcase different API patterns:
+    *   **Greeter**: A basic "Hello World" service.
+    *   **Ping**: A simple Ping/Pong service.
+    *   **RpcDemo**: A full CRUD (Create, Read, Update, Delete) service.
+*   **Frontend Support**: Built to work with the `vue3npm` frontend demo project.
 
-```bash
-curl "http://127.0.0.1:28000/api/service/ping?value=gogogo"
-```
+## 🚀 Getting Started
+
+### Prerequisites
+
+Ensure you have a working Go environment (Go 1.18+ is recommended).
+
+### Running the Service
+
+1.  Navigate to the project DIR:
+    ```bash
+    cd /Users/admin/go-projects/orzkratos/vue3kratos/internal/demos/demo1x/demo1go
+    ```
+2.  Run the application:
+    ```bash
+    go run ./cmd/demo1go
+    ```
+3.  You should see the following output, confirming the service is running:
+    ```
+    INFO msg=[HTTP] server listening on: [::]:28000
+    INFO msg=[gRPC] server listening on: [::]:28001
+    ```
+
+## 🔬 API Endpoints
+
+You can test the running service using `curl` or any API client.
+
+### Greeter Service
+
+*   **Endpoint**: `GET /api/greeter/meet/{name}`
+*   **Description**: A basic greeting service.
 
 ```bash
 curl "http://127.0.0.1:28000/api/greeter/meet/gogogo"
 ```
 
-Now service provide apis. You can run vue3 demo project to invoke these apis.
+### Ping Service
 
-## API
+*   **Endpoint**: `GET /api/service/ping`
+*   **Description**: A simple ping/pong test.
 
-### 1. `CreateRpcDemo`（POST + JSON body）
+```bash
+curl "http://127.0.0.1:28000/api/service/ping?value=gogogo"
+```
 
+### RpcDemo CRUD Service
+
+This service demonstrates a full set of CRUD operations.
+
+#### 1. Create (POST)
+*   **Endpoint**: `/api/demo/create-rpc-demo`
 ```bash
 curl -X POST "http://127.0.0.1:28000/api/demo/create-rpc-demo" \
   -H "Content-Type: application/json" \
@@ -43,32 +80,36 @@ curl -X POST "http://127.0.0.1:28000/api/demo/create-rpc-demo" \
   -d '{"code":"C002","name":"N002","type":"T001"}'
 ```
 
----
-
-### 2. `DeleteRpcDemo`（DELETE + 路径参数）
-
+#### 2. Delete (DELETE)
+*   **Endpoint**: `/api/demo/create-rpc-demo/{code}`
 ```bash
 curl -X DELETE "http://127.0.0.1:28000/api/demo/create-rpc-demo/C002"
 ```
 
----
-
-### 3. `UpdateRpcDemo`（PUT + JSON body）
-
+#### 3. Update (PUT)
+*   **Endpoint**: `/api/demo/update-rpc-demo`
 ```bash
 curl -X PUT "http://127.0.0.1:28000/api/demo/update-rpc-demo" \
   -H "Content-Type: application/json" \
   -d '{"code":"C001","name":"N001-V2"}'
 ```
 
----
-
-### 4. `SelectRpcDemo`（GET + query 参数）
-
+#### 4. Select (GET)
+*   **Endpoint**: `/api/demo/select-rpc-demo`
 ```bash
 curl "http://127.0.0.1:28000/api/demo/select-rpc-demo?type=T001"
 ```
 
-## Vue
+## Frontend Integration
 
-Now service provide apis. You can run vue3 demo project to invoke these apis.
+This backend service works with the `vue3npm` demo:
+
+1. Start this backend service first
+2. Navigate to the `vue3npm` DIR  
+3. Run demo scripts (`npm run demo:wise`, `npm run demo:epic`)
+4. Watch frontend and backend interact
+5. Enjoy real-time communication
+
+## Thanks
+
+Thank you! Happy Coding! 🎉 🎉 🎉

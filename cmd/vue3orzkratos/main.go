@@ -9,85 +9,75 @@ import (
 	"github.com/yyle88/done"
 	"github.com/yyle88/osexistpath/osmustexist"
 	"github.com/yyle88/zaplog"
+	"go.uber.org/zap"
 )
 
-// 定义根命令
-var rootCmd = &cobra.Command{
-	Use:   "run", // 根命令的名称
-	Short: "run: vue3kratos",
-	Long:  "see: https://github.com/orzkratos/vue3kratos",
-	Run: func(cmd *cobra.Command, args []string) {
-		zaplog.LOG.Info("run")
-	},
+func main() {
+	var rootCmd = &cobra.Command{
+		Use:   "vue3orzkratos",
+		Short: "A CLI app to the vue3kratos chain.",
+		Long:  `vue3orzkratos is a command-line app that helps bridge the gap between Kratos gRPC backends and Vue 3 frontends by converting generated TypeScript clients to be web-safe.`,
+	}
+
+	// example: vue3orzkratos gen-grpc-via-http-in-root --grpc-ts-root=/xxx/src/rpc
+	rootCmd.AddCommand(makeRootCmd())
+
+	// example: vue3orzkratos gen-grpc-via-http-in-path --grpc-ts-path=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
+	rootCmd.AddCommand(makePathCmd())
+
+	// example: vue3orzkratos gen-grpc-via-http-in-code --grpc-ts-code=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
+	rootCmd.AddCommand(makeCodeCmd())
+
+	// Execute root command
+	done.Done(rootCmd.Execute())
 }
 
-func main() {
-	{ // example: vue3orzkratos gen-grpc-via-http-in-root --grpc-ts-root=/xxx/src/rpc
-		// 目标的位置
-		var grpcTsRoot string
-
-		// 创建子命令
-		var genCmd = &cobra.Command{
-			Use:   "gen-grpc-via-http-in-root",
-			Short: "Generate gRPC via HTTP",
-			Long:  "Generate gRPC TypeScript stubs using HTTP",
-			Run: func(cmd *cobra.Command, args []string) {
-				vue3kratos.GenGrpcViaHttpInRoot(grpcTsRoot)
-			},
-		}
-		// 把 grpcTsRoot 路径参数加入子命令里
-		genCmd.Flags().StringVarP(&grpcTsRoot, "grpc-ts-root", "", "", "where is .client.ts in")
-		done.Done(genCmd.MarkFlagRequired("grpc-ts-root")) // 设置为必须参数
-		rootCmd.AddCommand(genCmd)
+func makeRootCmd() *cobra.Command {
+	var grpcTsRoot string
+	var genCmd = &cobra.Command{
+		Use:   "gen-grpc-via-http-in-root",
+		Short: "Deep finds and converts each .client.ts file in a DIR.",
+		Long:  `Searches to files ending with .client.ts within the specified root DIR and all its subdirectories, then converts each file from a gRPC client to an HTTP client.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			vue3kratos.GenGrpcViaHttpInRoot(grpcTsRoot)
+			zaplog.LOG.Info("✅ Success! Each found .client.ts file has been converted.", zap.String("root", grpcTsRoot))
+		},
 	}
+	genCmd.Flags().StringVarP(&grpcTsRoot, "grpc-ts-root", "r", "", "Root DIR to search to .client.ts files.")
+	done.Done(genCmd.MarkFlagRequired("grpc-ts-root"))
+	return genCmd
+}
 
-	{ // example: vue3orzkratos gen-grpc-via-http-in-path --grpc-ts-path=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
-		// 目标的位置
-		var grpcTsPath string
-
-		// 创建子命令
-		var genCmd = &cobra.Command{
-			Use:   "gen-grpc-via-http-in-path",
-			Short: "Generate gRPC via HTTP",
-			Long:  "Generate gRPC TypeScript stubs using HTTP",
-			Run: func(cmd *cobra.Command, args []string) {
-				vue3kratos.GenGrpcViaHttpInPath(grpcTsPath)
-			},
-		}
-		// 把 grpcTsPath 路径参数加入子命令里
-		genCmd.Flags().StringVarP(&grpcTsPath, "grpc-ts-path", "", "", "where is .client.ts in")
-		done.Done(genCmd.MarkFlagRequired("grpc-ts-path")) // 设置为必须参数
-		rootCmd.AddCommand(genCmd)
+func makePathCmd() *cobra.Command {
+	var grpcTsPath string
+	var genCmd = &cobra.Command{
+		Use:   "gen-grpc-via-http-in-path",
+		Short: "Converts one .client.ts file.",
+		Long:  `Converts one specified .client.ts file from a gRPC client to an HTTP client, modifying it in place.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			vue3kratos.GenGrpcViaHttpInPath(grpcTsPath)
+			zaplog.LOG.Info("✅ Success! File has been converted.", zap.String("path", grpcTsPath))
+		},
 	}
+	genCmd.Flags().StringVarP(&grpcTsPath, "grpc-ts-path", "p", "", "Path to the target .client.ts file.")
+	done.Done(genCmd.MarkFlagRequired("grpc-ts-path"))
+	return genCmd
+}
 
-	{ // example: vue3orzkratos gen-grpc-via-http-in-code --grpc-ts-code=/xxx/src/rpc/rpc_admin_login/admin_login.client.ts
-		// 目标的位置
-		var grpcTsCode string
-
-		// 创建子命令
-		var genCmd = &cobra.Command{
-			Use:   "gen-grpc-via-http-in-code",
-			Short: "Generate gRPC via HTTP",
-			Long:  "Generate gRPC TypeScript stubs using HTTP",
-			Run: func(cmd *cobra.Command, args []string) {
-				//这里需要的就是个文件的路径
-				clientPath := osmustexist.FILE(grpcTsCode)
-				//读取内容
-				srcContent := done.VAE(os.ReadFile(clientPath)).Nice()
-				//转换内容
-				newContent := vue3kratos.GenGrpcViaHttpInCode(string(srcContent))
-				//打印结果
-				fmt.Println()
-				fmt.Println(newContent)
-				fmt.Println()
-			},
-		}
-		// 把 grpcTsCode 路径参数加入子命令里
-		genCmd.Flags().StringVarP(&grpcTsCode, "grpc-ts-code", "", "", "where is .client.ts in")
-		done.Done(genCmd.MarkFlagRequired("grpc-ts-code")) // 设置为必须参数
-		rootCmd.AddCommand(genCmd)
+func makeCodeCmd() *cobra.Command {
+	var grpcTsCodePath string
+	var genCmd = &cobra.Command{
+		Use:   "gen-grpc-via-http-in-code",
+		Short: "Converts and prints the content of a .client.ts file to stdout.",
+		Long:  `Reads a .client.ts file, performs the conversion in memory, and prints the resulting code to standard output without modifying the source file.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			clientPath := osmustexist.FILE(grpcTsCodePath)
+			srcContent := done.VAE(os.ReadFile(clientPath)).Nice()
+			newContent := vue3kratos.GenGrpcViaHttpInCode(string(srcContent))
+			fmt.Println(newContent)
+		},
 	}
-
-	// 执行根命令
-	done.Done(rootCmd.Execute())
+	genCmd.Flags().StringVarP(&grpcTsCodePath, "grpc-ts-code", "c", "", "Path to the .client.ts file to read and convert.")
+	done.Done(genCmd.MarkFlagRequired("grpc-ts-code"))
+	return genCmd
 }

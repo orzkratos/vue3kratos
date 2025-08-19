@@ -1,61 +1,131 @@
 # vue3kratos
 
-> Vue 3 frontends + Kratos backends 集成开发工具包  
-> Seamless TypeScript + Go RPC integration, powered by `@protobuf-ts/plugin` and Kratos
-
----
+> Vue 3 前端 + Kratos 后端集成开发工具包  
+> 从 Go Kratos proto 文件生成类型安全的 TypeScript 客户端  
+> 无缝的 TypeScript + Go RPC 集成，使用 `@protobuf-ts/plugin`  
+> 从后端到前端的完整类型安全  
+> 像调用本地函数一样调用后端 API
 
 ## 英文文档
 
 [ENGLISH README](README.md)
 
----
+## 核心架构
 
-## ✨ 项目简介
+`vue3kratos` 连接 Go 后端与 Vue 3 前端，生成 TypeScript 客户端。
 
-`vue3kratos` 是一个用于将 [Kratos](https://go-kratos.dev/) 后端服务定义（proto 文件）自动生成为 Vue 3 / TypeScript 客户端调用代码的工具链。  
-它还支持将生成的 gRPC 客户端改为 HTTP 请求形式，以便在浏览器中直接使用。
-
----
-
-## 🛠 安装与工具链准备
-
-### 安装 TypeScript gRPC 生成工具
-
-使用 [@protobuf-ts/plugin](https://www.npmjs.com/package/@protobuf-ts/plugin)，而**不是**其他 `protoc-gen-ts` 插件：
-
-```bash
-npm install -g @protobuf-ts/plugin
-````
-
-确认是否安装成功：
-
-```bash
-which protoc-gen-ts
+### 开发工具链
+```
++-------------+    +----------+    +---------------+    +--------------+    +---------------+
+| .proto 文件 | -> | protoc   | -> | gRPC TS 客户端| -> | vue3kratos   | -> | HTTP TS 客户端|
+|             |    | + 插件   |    |               |    | CLI 转换工具 |    |               |
++-------------+    +----------+    +---------------+    +--------------+    +---------------+
 ```
 
----
+### 运行时架构
+```
++------------------+                                    +------------------+
+|   Vue 3 前端     |                                    |  Kratos 后端     |
+|                  |                                    |                  |
+| ┌──────────────┐ |                                    | ┌──────────────┐ |
+| │ gRPC客户端代码│ |  代码编写 gRPC 风格调用             │ │   HTTP 服务   │ |
+| │ client.call() │ |                                    | │  :28000       │ |
+| └──────┬───────┘ |                                    | └──────────────┘ |
+|        │         |                                    |                  |
+| ┌──────▼───────┐ |   底层实际发送 HTTP 请求            |                  |
+| │HTTP 转换层    │ |  =========================>        |                  |
+| │(@yyle88/grpt) │ |     POST /api/method               |                  |
+| └──────────────┘ |     Content-Type: application/json |                  |
+|                  |                                    | ┌──────────────┐ |
+|                  |                                    | │   gRPC 服务   │ |
+|                  |                    ❌ 跳过 ------> | │   :28001      │ |
+|                  |                                    | │  (未使用)     │ |
+|                  |                                    | └──────────────┘ |
++------------------+                                    +------------------+
+```
 
-## 🧱 基础开发环境示例
+## 🌟 核心特性
+
+*   **自动代码生成**: 从 proto 文件生成简洁的 TypeScript 客户端
+*   **告别手写API**: 不再需要手动编写API客户端代码
+*   **一键转换**: 单条命令将 gRPC 客户端转为 HTTP 客户端
+*   **Web 兼容**: 直接在 Web 中使用，无需 gRPC 复杂性
+*   **完整类型安全**: 从后端到前端的完整类型检查
+*   **IDE 智能提示**: 丰富的开发体验，智能代码补全
+*   **Makefile 集成**: 轻松集成到现有构建流程
+*   **CI/CD 管线**: 平滑的工作流自动化支持
+*   **Axios HTTP 客户端**: 现代化的 HTTP 客户端实现
+*   **本地函数体验**: 像调用本地函数一样调用 API
+
+## 🚀 快速上手
+
+在几分钟内，亲身体验 `vue3kratos` 的强大之处。
+
+### 1. 启动后端服务
+
+首先，运行 `demo1go` 后端服务。
 
 ```bash
-# 示例1
-npm list -g --depth=0
-├── @protobuf-ts/plugin@2.9.4
-├── ts-node@10.9.2
-├── typescript@5.4.5
+# 进入后端服务DIR
+cd internal/demos/demo1x/demo1go
 
-# 示例2
+# 启动服务
+make run
+# 或者
+go run ./cmd/demo1go
+```
+
+服务将在 `http://127.0.0.1:28000` (HTTP) 和 `http://127.0.0.1:28001` (gRPC) 上启动。
+
+### 2. 运行前端演示
+
+接着，在另一个终端中，运行 `vue3npm` 前端演示。
+
+```bash
+# 进入前端演示DIR
+cd internal/demos/demo2x/vue3npm
+
+# 安装依赖
+npm install
+
+# 运行智慧演示
+npm run demo:wise
+```
+
+现在，你将看到前端应用调用后端API的实时日志输出，完美地展示了前后端的无缝协作。
+
+## `vue3kratos` 工作流详解
+
+在你的项目中使用 `vue3kratos` 只需以下几步。
+
+### 第1步: 安装链
+
+确保你已全局安装 `@protobuf-ts/plugin`，并已安装 `vue3kratos` 的Go CLI应用。
+
+```bash
+# 安装 protobuf-ts 插件（使用这个，而不是其他 protoc-gen-ts 插件）
+npm install -g @protobuf-ts/plugin
+
+# 确认是否安装成功
+which protoc-gen-ts
+
+# 安装 vue3kratos CLI
+go install github.com/orzkratos/vue3kratos/cmd/vue3orzkratos@latest
+```
+
+#### 基础开发环境示例
+
+```bash
+# 示例全局依赖
 npm list -g --depth=0
 ├── @protobuf-ts/plugin@2.9.4
+├── typescript@5.4.5
 ├── vite@5.4.8
 ```
 
----
+### 第2步: 生成 gRPC 客户端
 
-## 📦 在 Kratos 项目中生成 TS 客户端代码
-
-### 示例 Makefile 规则（推荐）
+在你的 Kratos 项目中，使用 `protoc` 和 `protoc-gen-ts` 从 `.proto` 文件生成 TypeScript 客户端。推荐在 `Makefile` 中进行管理。
 
 ```makefile
 web_api_grpc_ts:
@@ -82,34 +152,19 @@ Makefile 中还需添加：
 THIRD_PARTY_GOOGLE_API_PROTO_FILES=$(shell find third_party/google/api -name *.proto)
 ```
 
-> 更多例子见：[demo1 Makefile](https://github.com/orzkratos/vue3kratos-demos/blob/main/demo1kratos/Makefile)
+### 第3步: 转换为 HTTP 客户端
 
----
-
-## ⚙️ 替换 gRPC 为 HTTP 请求
-
-生成的客户端默认基于 gRPC。如果你希望通过 HTTP 进行调用，可使用下列工具自动转换：
-
-### 安装 CLI 工具
+使用 `vue3orzkratos` CLI 将上一步生成的 gRPC 客户端文件转换为 HTTP 客户端。
 
 ```bash
-go install github.com/orzkratos/vue3kratos/cmd/vue3orzkratos@latest
-```
-
-### 使用 CLI 替换客户端文件中的请求方式
-
-```bash
-vue3orzkratos gen-grpc-via-http-in-path \
-  --grpc-ts-path=/absolute/path/to/your.client.ts
+vue3orzkratos gen-grpc-via-http-in-path --grpc-ts-path=/path/to/the/generated.client.ts
 ```
 
 该命令会将目标文件中 gRPC 的调用方式替换为基于 Axios 的 HTTP 请求。
 
----
+### 第4步: 在 Vue 中使用
 
-## 📦 安装 Axios HTTP 客户端模块
-
-你还需要在前端项目中安装辅助包：
+在你的 Vue 项目中，安装 `@yyle88/grpt` 辅助模块，然后你就可以像调用一个普通函数一样，调用所有API。
 
 ```bash
 npm install @yyle88/grpt
@@ -117,21 +172,55 @@ npm install @yyle88/grpt
 
 > npm 模块地址：[@yyle88/grpt](https://www.npmjs.com/package/@yyle88/grpt)
 
+```typescript
+// 来自项目实际示例 internal/demos/demo2x/vue3npm/src/demo-ping.ts
+import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
+import { RpcpingClient } from "./rpc/rpcping/rpcping.client";
+import { StringValue } from "./rpc/google/protobuf/wrappers";
+
+// 创建传输实例
+const demoTransport = new GrpcWebFetchTransport({
+    baseUrl: "http://127.0.0.1:28000",
+    meta: {
+        Authorization: 'TOKEN-888',
+    },
+});
+
+const rpcpingClient = new RpcpingClient(demoTransport);
+
+// API 调用示例
+async function demoPing() {
+    const request = StringValue.create({
+        value: "Hello from Vue3 Kratos!"
+    });
+
+    try {
+        const response = await rpcpingClient.ping(request, {});
+        console.log('Ping 成功:', response.data.value);
+        return response.data.value;
+    } catch (err) {
+        console.error('Ping 失败:', err);
+        throw err;
+    }
+}
+```
+
 ---
 
 ## 🔁 示例项目
 
-* [demo1kratos](https://github.com/orzkratos/vue3kratos-demos/tree/main/demo1kratos) – Kratos 项目生成 TypeScript 客户端代码
-* [demo2kratos](https://github.com/orzkratos/vue3kratos-demos/tree/main/demo2kratos) – HTTP 转换示例
+* **[internal/demos/demo1x/demo1go](internal/demos/demo1x/demo1go)** – Kratos 项目生成 TypeScript 客户端代码
+* **[internal/demos/demo2x/vue3npm](internal/demos/demo2x/vue3npm)** – HTTP 转换和 Vue 3 集成示例
 
 ---
 
 ## ✅ 特性小结
 
-* 将 Kratos proto 文件生成为 TypeScript gRPC 客户端
+* 将 Kratos proto 文件生成为类型安全的 TypeScript gRPC 客户端
 * 支持自动替换为 HTTP 请求形式（Axios 封装）
 * 支持类型提示与自动补全，前端集成体验极佳
 * 可集成至 Makefile 或 CI/CD 中
+* Web 兼容的 HTTP 客户端，支持直接前端调用
 
 ---
 

@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "demo": "echo 'vue3-kratos' && exit 0",
-    "test": "echo 'vue3-kratos' && exit 0",
     "grpcrewrite": "grpcrewrite",
-    "show": "echo 'vue3-kratos' && exit 0",
-    "demo1": "tsx src/demo1-greeter-kratos.ts"
+    "demo:wise": "tsx src/demo-wise.ts",
+    "demo:epic": "tsx src/demo-epic.ts",
+    "demo:ping": "tsx src/demo-ping.ts",
+    "demo:crud": "tsx src/demo-crud.ts"
   },
   "keywords": [],
   "author": "lele",
@@ -19,10 +20,10 @@
     "@protobuf-ts/runtime-rpc": "^2.11.1",
     "@yyle88/grpt": "^0.0.11",
     "axios": "1.11.0",
-    "element-plus": "^2.10.6"
+    "element-plus": "^2.10.7"
   },
   "devDependencies": {
-    "tsx": "^4.20.3",
+    "tsx": "^4.20.4",
     "typescript": "^5.9.2"
   }
 }

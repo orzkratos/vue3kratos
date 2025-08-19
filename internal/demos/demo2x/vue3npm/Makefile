@@ -1,6 +1,7 @@
 # Makefile
 
-# 目标：更新所有依赖到符合 package.json 中的版本范围
+# WARNING: Force updates all dependencies to the latest versions specified in package.json.
+# This can be a destructive action and might introduce breaking changes.
 update:
 	npm ls
 	npm fund
@@ -10,6 +11,6 @@ update:
 	npx npm-check-updates -u
 	npm install
 
-# 读取 tsconfig.json 按照配置检查类型和语法是否正确
+# Performs a static type check of the project using the TypeScript compiler.
 check:
 	npx tsc --noEmit

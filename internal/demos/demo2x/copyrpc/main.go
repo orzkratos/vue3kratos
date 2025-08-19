@@ -29,4 +29,6 @@ func main() {
 	vue3kratos.CloneFilesToDestRoot(outputRoot, vueRpcPath)
 
 	vue3kratos.GenGrpcViaHttpInRoot(vueRpcPath)
+
+	done.VAE(osexec.ExecInPath(projectPath, "make", "web-api-cleanup")).Nice()
 }
